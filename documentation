@@ -1,0 +1,84 @@
+German Version
+
+Vereinfachte Dokumentation 
+
+Z. 1-6 
+  Bemerkungen 
+
+Z. 9-13 
+  Importe der benötigten Module
+
+Z. 15-17
+  setzten der werte der swap-Größe, der Wert der maximalen Swap größe, der Mount-Pfad
+
+Z. 20-26
+  Ausführen der Befehle & Rückmeldungen vom Terminal
+
+Z. 29-96
+
+    30-33
+      Überprüfung des Betriebssystemes 
+      Wenn es ein Darwin oder Windows ist, wird das Skript sofort beendet. 
+
+    35-38
+      Fehlermeldung wenn das Skript nicht mit sudo ausgeführt wurde. 
+      Sudo wird hier benötigt weil, das Hinzufügen einer Partition immer extra Erlaubnis braucht 
+
+    40-43
+      Das Skript überprüft ob eine Swao Partition schon vorhanden ist. 
+      Wenn eine erkannt wird stoppt das Skript. Das Skript zeigt auch einen Weg der beschreibt wie man diese Parition löschen kann
+
+    46-48
+      Wenn jemand z.B. 100GB Swap will, aber das Limit bei 64GB liegt → Skript stoppt. Also: Swap-Größe darf nicht größer sein als das Limit.
+
+    50-54
+      Das Skript überprüft hier den verfügbaren Speicherplatz. Wenn nicht genug Speicherplatz verohanden ist, bricht das Skript ab und gibt den maximal verfügbaren Wert aus. 
+
+    56
+      Einfache Statusmeldung
+
+    59-60
+      Hier wird tatsächlich klar: Es erstellt keine "echte" Partition, es erstellt hier nur eine datei die z.B. 16GB groß ist. Das ist wie ein Cache für das System. Diese spezielle Datei wird nur als Swap formatiert. ABER: Linux macht was das angeht keine Unterschiede. 
+
+    63-64
+      Das Skript setzt hier die Schreibrechte (nur root darf schreiben). Das ist wichtig weil in dieser SWAP sowie im echten RAM sensible Daten zwischen gelagert werden. So kann nur root lesen & schreiben. 
+
+    67-68
+      Das ist mitunter der wichtigste Part: Hier wird die Datei als SWAP formatiert. 
+      Wenn sie jetzt als SWAP formatiert ist, ist sie zwar schon formatiert aber nochh nicht aktiviert. 
+
+    71-72 
+      In diesem Abschnitt wird die SWAP Datei aktiviert. Wenn jetzt die Frage aufkommt warum denn aktivieren? WEIL: Linux erkannt: Die Datei ist eine SWAP Datei, aber Linux weiß nicht was           nun mit dieser Datei?? Deshalb wird sie erst formatiert und danach aktiviert. 
+
+    75-87 
+      Der größe/wichtigste Teil:
+
+      75
+        In diesem Teil wird die Datei quasi "Neustart-Sicher" gemacht. Bei /swap file_extra... wird Linux gesagt, dass es beim booten diese Datei mounten (eine Partition/Datei einhängen             wird zum lesen bereitgemacht) soll. 
+
+      77-78
+        Linux liest die Datei. Diese Datei ist wichtig damit Linux weiß wie es die ganzen Partitionen oder Festplatten oder SWAP Beriche mounten (einhängen) muss, damit es nicht zu Komplikationen kommt. Ebenfalls steht in dieser Datei ob sie automatisch eingebunden werden müssen. 
+
+      79
+        Hier wird dieser Eintrag geprüft damit Linux sichergehen kann das keine Duplikate entstehen, falls das Skript versehentlich zwei ausgeführt hat. 
+
+      80-82
+        Hier wird eine Datei geöffnet und dieser Eintrag ans Ende gehängt. So werden die schon bestehenden Einträge nicht überschrieben. 
+
+      83-84
+        Hier ist wieder nur ein Debug-Tool, das prüft ob dieser Eintrag schon drinnen ist. 
+
+      86-87
+        Erfolgsmeldung
+
+    Ohne diese Ganzen Schritte müsste man das alles manuell einhängen. 
+
+    89-96
+      Diese simplen print() Zeilen zeigen einfach den Status an. 
+
+    99-100
+      Die MAIN Funktion wird aufgerufen & gestartet
+
+      
+      
+        
